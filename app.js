@@ -1,0 +1,37 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
+const expressValidator = require("express-validator");
+require("dotenv").config();
+
+//import routes
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+
+const app = express();
+
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("Database Connection Successful"));
+
+app.use(morgan("dev")); //Help us to know which routes have been requested and we can see it in console.
+app.use(bodyParser.json()); //Parse the incoming body request in json format.
+app.use(cookieParser()); //cookie-parser is a middleware which parses cookies attached to the client request object.
+app.use(expressValidator());
+app.use(cors());
+
+//routes middlewares
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+
+const port = process.env.PORT || 80;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

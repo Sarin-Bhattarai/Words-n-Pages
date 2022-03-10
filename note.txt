@@ -1,0 +1,27 @@
+Authentication Routes (location = routes/auth.js)
+
+1) => for signup, signup method importing from controller=> location = controllers/auth.js, validator imported from validations/index.js
+router.post("/signup", userSignupValidator, signup);
+
+2) => for signin, signin method importing from controller=> location = controllers/auth.js
+router.post("/signin", signin);
+
+3) => for signout, signout method importing from controller=> location = controllers/auth.js
+router.get("/signout", signout);
+
+
+
+
+User Routes
+1) Requesting/get to user profile => controller grabbed from controller/user.js
+router.get("/secret/:userId", requireSignin, isAuth, isAdmin, (req, res) => {
+  res.json({
+    user: req.profile,
+  });
+});
+
+2) Reading/get user profile => controller grabbed from controller/user.js
+router.get("/user/:userId", requireSignin, isAuth, read);
+
+3) Updating user profile => controller grabbed from controller/user.js
+router.put("/user/:userId", requireSignin, isAuth, update);

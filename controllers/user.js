@@ -1,5 +1,5 @@
 const User = require("../models/user");
-
+const jwt = require("jsonwebtoken");
 exports.userById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
     if (err || !user) {
@@ -35,3 +35,21 @@ exports.update = (req, res) => {
     }
   );
 };
+
+// exports.getProfile = (req, res) => {
+//   jwt.verify(req.token, (err, authorizedData) => {
+//     if (err) {
+//       res.sendStatus(403).json({
+//         status: "fail",
+//         message: "Forbidden",
+//       });
+//     } else {
+//       res.json({
+//         message: "Successful log in",
+//         authorizedData,
+//       });
+//     }
+//   });
+
+//   console.log("SUCCESS: User Profile");
+// };

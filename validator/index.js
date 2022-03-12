@@ -1,6 +1,7 @@
 exports.userSignupValidator = (req, res, next) => {
   //we will check for details of user and if not found we will display meaningful error message.
-  req.check("name", "Name is required").notEmpty();
+  req.check("fName", "First-Name is required").notEmpty();
+  req.check("lName", "Last-Name is required").notEmpty();
   req
     .check("email", "Email must be between 3 to 32 charcters long")
     .matches(/.+\@.+\..+/)

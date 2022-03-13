@@ -26,12 +26,29 @@ const productSchema = new mongoose.Schema({
     ref: "Genre",
     required: true,
   },
+  author: {
+    type: ObjectId,
+    ref: "Author",
+    required: true,
+  },
+  language: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+  pages: {
+    type: Number,
+    required: true,
+  },
   quantity: {
     type: Number,
   },
-  sold: {
-    type: Number,
-    default: 0,
+  photo: {
+    type: String,
+  },
+  shipping: {
+    required: false,
+    type: Boolean,
   },
 });
 

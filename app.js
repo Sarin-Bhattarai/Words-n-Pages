@@ -12,6 +12,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const genreRoutes = require("./routes/genre");
+const authorRoutes = require("./routes/author");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(cors());
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", genreRoutes);
+app.use("/api", authorRoutes);
 
 const port = process.env.PORT || 80;
 

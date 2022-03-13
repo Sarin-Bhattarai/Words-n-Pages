@@ -36,6 +36,14 @@ exports.update = (req, res) => {
   );
 };
 
+//fetch the profile on the basis of jwt token in header
+exports.getProfile = (req, res) => {
+  return res.status(200).json({
+    status: "Success",
+    data: req.user,
+  });
+};
+
 // exports.getProfile = (req, res) => {
 //   jwt.verify(req.token, (err, authorizedData) => {
 //     if (err) {

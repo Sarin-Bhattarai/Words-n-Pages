@@ -13,7 +13,7 @@ const authorSchema = new mongoose.Schema({
     //trim = any space in the beginning or end there will be trimmed out
     trim: true,
     required: true,
-    maxlength: 250,
+    maxlength: 2000,
   },
 });
 

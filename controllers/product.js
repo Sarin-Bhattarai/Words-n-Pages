@@ -35,17 +35,16 @@ exports.removeProduct = (req, res) => {
 };
 
 /**
- * Sell and Arrival
+ * Sold or featured
  * by sell = /products?sortBy=sold&order=descending&limit=4(limit can be any, for here it is 4)
  * if it is 4 then we will return only 4 products.
- * by arrival = /products?sortBy=createdAt&order=descending&limit=4
  * if no params are send , then all products are returned
  */
 
 exports.listProduct = (req, res) => {
   let order = req.query.order ? req.query.order : "asc"; //ascending order
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
-  let limit = req.query.limit ? parseInt(req.query.limit) : 8; //default it's going to be eight.
+  let limit = req.query.limit ? parseInt(req.query.limit) : 5; //default it's going to be five.
 
   Product.find()
     // .select("-photo") //not selecting photo since it is in binary form and makes slow.

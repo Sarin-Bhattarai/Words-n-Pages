@@ -46,6 +46,10 @@ const productSchema = new mongoose.Schema({
   photo: {
     type: String,
   },
+  sold: {
+    type: Number,
+    default: 0,
+  },
   shipping: {
     required: false,
     type: Boolean,

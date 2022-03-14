@@ -14,6 +14,7 @@ const {
 
 //importing product model
 const Product = require("../models/product");
+// const { userByJwt } = require("../middlewares/profile");
 
 //file or image upload
 const storage = multer.diskStorage({
@@ -159,7 +160,7 @@ router.put(
   }
 );
 
-router.get("/products", requireSignin, isAuth, isAdmin, listProduct);
+router.get("/products", listProduct);
 
 router.param("userId", userById);
 router.param("productId", productById);

@@ -55,40 +55,11 @@ exports.signout = (req, res) => {
 };
 
 //user require sign(optional for now)
-// exports.requireSignin = expressJwt({
-//   secret: process.env.JWT_SECRET,
-//   algorithms: ["HS256"],
-//   userProperty: "auth",
-// });
-
-exports.requireSignin = async (req, res) => {
-  try {
-    let token;
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
-      token = req.headers.authorization.split(" ")[1];
-    }
-    if (!token) {
-      return res.send({
-        status: "fail",
-        data: {
-          login:
-            "Cannot access the content that you are looking for! Please login to Continue",
-        },
-      });
-    }
-
-    const user = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
-    const result = await User.findById(user._id);
-    req.user = result;
-    next();
-  } catch (ex) {
-    console.log(ex);
-    return res.send({ status: "error", message: "Access Denied" });
-  }
-};
+exports.requireSignin = expressJwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ["HS256"],
+  userProperty: "auth",
+});
 
 //for checking the authorized user to give access
 exports.isAuth = (req, res, next) => {

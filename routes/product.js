@@ -159,7 +159,7 @@ router.put(
   }
 );
 
-router.get("/products", listProduct);
+router.get("/products", requireSignin, isAuth, isAdmin, listProduct);
 
 router.param("userId", userById);
 router.param("productId", productById);

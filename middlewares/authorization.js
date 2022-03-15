@@ -1,12 +1,10 @@
-const { role } = require("../models/user");
-
 //getting user authorization to know whether the user is admin or not
 
 function getUserauthorization(req, res, next) {
   const user = req.user;
 
   try {
-    if (user.role == role.admin) {
+    if (user.role === "admin") {
       next();
     } else {
       return res

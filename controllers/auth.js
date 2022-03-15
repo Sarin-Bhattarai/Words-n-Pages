@@ -52,31 +52,3 @@ exports.signout = (req, res) => {
   res.clearCookie("t");
   res.json({ message: "Signout Successful" });
 };
-
-//user require sign(optional for now)
-// exports.requireSignin = expressJwt({
-//   secret: process.env.JWT_SECRET,
-//   algorithms: ["HS256"],
-//   userProperty: "auth",
-// });
-
-//for checking the authorized user to give access
-// exports.isAuth = (req, res, next) => {
-//   let user = req.profile && req.auth && req.profile._id == req.auth._id; //authenticated user must have same id to sign again.
-//   if (!user) {
-//     return res.status(403).json({
-//       error: "Access Denied",
-//     });
-//   }
-//   next();
-// };
-
-// //checking for the admin access
-// exports.isAdmin = (req, res, next) => {
-//   if (req.profile.role === 0) {
-//     return res.status(403).json({
-//       error: "Admin resource! Access Denied",
-//     });
-//   }
-//   next();
-// };

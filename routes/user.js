@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
-const { userById, read, update } = require("../controllers/user");
+const { userById, read, update, getProfile } = require("../controllers/user");
 const { VerifyLogin } = require("../middlewares/profile");
 const { getUserauthorization } = require("../middlewares/authorization");
 
 //fetch the profile on the basis of jwt token in header
-router.get("/user/profile", VerifyLogin);
+router.get("/user/profile", VerifyLogin, getProfile);
 
 router.get("/secret/:userId", VerifyLogin, getUserauthorization, (req, res) => {
   res.json({

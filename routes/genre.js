@@ -17,7 +17,7 @@ const { userById } = require("../controllers/user");
 
 router.get("/genre/:genreId", read);
 
-router.post("/genre/create/:userId", VerifyLogin, getUserauthorization, create);
+router.post("/genre/create", VerifyLogin, getUserauthorization, create);
 
 router.put(
   "/genre/:genreId/:userId",

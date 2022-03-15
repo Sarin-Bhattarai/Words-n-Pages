@@ -34,10 +34,9 @@ const userSchema = new mongoose.Schema(
     salt: String,
 
     role: {
-      //we will disntguish user and admin by giving the number 0 and 1.
-      //0 is for user and 1 is for admin. by default it will be 0 i.e. user
-      type: Number,
-      default: 0,
+      type: String,
+      enum: ["user", "admin"], //enum means = must be user or admin doesn't take other value
+      default: "user",
     },
   },
   { timestamps: true }

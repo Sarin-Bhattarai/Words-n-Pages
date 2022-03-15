@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
-//import controllers
-const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+
+//importing middlewares
+const { VerifyLogin } = require("../middlewares/profile");
+const { getUserauthorization } = require("../middlewares/authorization");
+
 const {
   create,
   genreById,
@@ -14,15 +17,19 @@ const { userById } = require("../controllers/user");
 
 router.get("/genre/:genreId", read);
 
-router.post("/genre/create/:userId", requireSignin, isAuth, isAdmin, create);
+router.post("/genre/create/:userId", VerifyLogin, getUserauthorization, create);
 
-router.put("/genre/:genreId/:userId", requireSignin, isAuth, isAdmin, update);
+router.put(
+  "/genre/:genreId/:userId",
+  VerifyLogin,
+  getUserauthorization,
+  update
+);
 
 router.delete(
   "/genre/:genreId/:userId",
-  requireSignin,
-  isAuth,
-  isAdmin,
+  VerifyLogin,
+  getUserauthorization,
   remove
 );
 

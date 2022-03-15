@@ -43,21 +43,3 @@ exports.getProfile = (req, res) => {
     data: req.user,
   });
 };
-
-// exports.getProfile = (req, res) => {
-//   jwt.verify(req.token, (err, authorizedData) => {
-//     if (err) {
-//       res.sendStatus(403).json({
-//         status: "fail",
-//         message: "Forbidden",
-//       });
-//     } else {
-//       res.json({
-//         message: "Successful log in",
-//         authorizedData,
-//       });
-//     }
-//   });
-
-//   console.log("SUCCESS: User Profile");
-// };

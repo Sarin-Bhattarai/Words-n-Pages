@@ -2,8 +2,9 @@ const express = require("express");
 const multer = require("multer");
 const router = express.Router();
 
-//importing controllers
-const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+//importing middlewares
+const { VerifyLogin } = require("../middlewares/profile");
+const { getUserauthorization } = require("../middlewares/authorization");
 const { userById } = require("../controllers/user");
 const {
   productById,
@@ -63,9 +64,8 @@ router.get("/product/:productId", readProduct);
 //post product
 router.post(
   "/product/create/:userId",
-  requireSignin,
-  isAuth,
-  isAdmin,
+  VerifyLogin,
+  getUserauthorization,
   type,
   async (req, res) => {
     if (!req.file) {
@@ -99,18 +99,16 @@ router.post(
 //delete product
 router.delete(
   "/product/:productId/:userId",
-  requireSignin,
-  isAuth,
-  isAdmin,
+  VerifyLogin,
+  getUserauthorization,
   removeProduct
 );
 
 //edit product
 router.put(
   "/product/:productId/:userId",
-  requireSignin,
-  isAuth,
-  isAdmin,
+  VerifyLogin,
+  getUserauthorization,
   type,
   async (req, res) => {
     const productid = req.params.productId;

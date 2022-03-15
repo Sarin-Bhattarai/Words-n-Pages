@@ -1,6 +1,5 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken"); //to generate signed token
-const expressJwt = require("express-jwt"); //for authorization check
 const { errorHandler } = require("../helper/errorHandler");
 
 //user signup
@@ -55,51 +54,29 @@ exports.signout = (req, res) => {
 };
 
 //user require sign(optional for now)
-exports.requireSignin = expressJwt({
-  secret: process.env.JWT_SECRET,
-  algorithms: ["HS256"],
-  userProperty: "auth",
-});
+// exports.requireSignin = expressJwt({
+//   secret: process.env.JWT_SECRET,
+//   algorithms: ["HS256"],
+//   userProperty: "auth",
+// });
 
 //for checking the authorized user to give access
-exports.isAuth = (req, res, next) => {
-  let user = req.profile && req.auth && req.profile._id == req.auth._id; //authenticated user must have same id to sign again.
-  if (!user) {
-    return res.status(403).json({
-      error: "Access Denied",
-    });
-  }
-  next();
-};
-
-//checking for the admin access
-exports.isAdmin = (req, res, next) => {
-  if (req.profile.role === 0) {
-    return res.status(403).json({
-      error: "Admin resource! Access Denied",
-    });
-  }
-  next();
-};
-
-// const { role } = require("../models/user");
-
-// //getting user authorization to know whether the user is admin or not
-
-// function getUserauthorization(req, res, next) {
-//   const user = req.user;
-
-//   try {
-//     if (user.role == role.admin) {
-//       next();
-//     } else {
-//       return res
-//         .status(401)
-//         .send({ status: "fail", message: "unauthorized access" });
-//       //401 =Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated".
-//       //That is, the client must authenticate itself to get the requested response.
-//     }
-//   } catch (ex) {
-//     return res.status(404).send("Something went Wrong!");
+// exports.isAuth = (req, res, next) => {
+//   let user = req.profile && req.auth && req.profile._id == req.auth._id; //authenticated user must have same id to sign again.
+//   if (!user) {
+//     return res.status(403).json({
+//       error: "Access Denied",
+//     });
 //   }
-// }
+//   next();
+// };
+
+// //checking for the admin access
+// exports.isAdmin = (req, res, next) => {
+//   if (req.profile.role === 0) {
+//     return res.status(403).json({
+//       error: "Admin resource! Access Denied",
+//     });
+//   }
+//   next();
+// };

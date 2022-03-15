@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
-//import controllers
-const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+//import middlewares
+const { VerifyLogin } = require("../middlewares/profile");
+const { getUserauthorization } = require("../middlewares/authorization");
+
 const {
   createAuthor,
   authorById,
@@ -16,25 +18,22 @@ router.get("/author/:authorId", readAuthor);
 
 router.post(
   "/author/create/:userId",
-  requireSignin,
-  isAuth,
-  isAdmin,
+  VerifyLogin,
+  getUserauthorization,
   createAuthor
 );
 
 router.put(
   "/author/:authorId/:userId",
-  requireSignin,
-  isAuth,
-  isAdmin,
+  VerifyLogin,
+  getUserauthorization,
   updateAuthor
 );
 
 router.delete(
   "/author/:authorId/:userId",
-  requireSignin,
-  isAuth,
-  isAdmin,
+  VerifyLogin,
+  getUserauthorization,
   removeAuthor
 );
 

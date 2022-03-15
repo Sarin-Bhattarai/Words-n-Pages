@@ -2,20 +2,21 @@ const express = require("express");
 const router = express.Router();
 const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
 const { userById, read, update } = require("../controllers/user");
-const { userByJwt } = require("../middlewares/profile");
+const { VerifyLogin } = require("../middlewares/profile");
+const { getUserauthorization } = require("../middlewares/authorization");
 
 //fetch the profile on the basis of jwt token in header
-router.get("/user/profile", userByJwt);
+router.get("/user/profile", VerifyLogin);
 
-router.get("/secret/:userId", requireSignin, isAuth, isAdmin, (req, res) => {
+router.get("/secret/:userId", VerifyLogin, getUserauthorization, (req, res) => {
   res.json({
     user: req.profile,
   });
 });
 
-router.get("/user/:userId", requireSignin, isAuth, read);
+router.get("/user/:userId", VerifyLogin, read);
 
-router.put("/user/:userId", requireSignin, isAuth, update);
+router.put("/user/:userId", VerifyLogin, update);
 
 router.param("userId", userById);
 

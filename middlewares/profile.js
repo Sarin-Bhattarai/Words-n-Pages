@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
-const userByJwt = async (req, res, next) => {
+const VerifyLogin = async (req, res, next) => {
   try {
     let token;
     if (
@@ -30,4 +30,4 @@ const userByJwt = async (req, res, next) => {
   }
 };
 
-module.exports = { userByJwt };
+module.exports = { VerifyLogin };

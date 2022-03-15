@@ -16,7 +16,6 @@ const authorRoutes = require("./routes/author");
 const productRoutes = require("./routes/product");
 
 const app = express();
-
 app.use("/uploads", express.static("uploads"));
 
 mongoose

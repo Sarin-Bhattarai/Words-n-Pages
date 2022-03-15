@@ -38,12 +38,7 @@ exports.update = (req, res) => {
 
 //fetch the profile on the basis of jwt token in header
 exports.getProfile = (req, res) => {
-  User.hashed_password = undefined;
-  User.salt = undefined;
-  User.createdAt = undefined;
-  User.updatedAt = undefined;
-  User.__v = undefined;
-  return res.status(200).json({
+  res.status(200).json({
     status: "Success",
     data: req.user,
   });

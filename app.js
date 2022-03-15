@@ -17,6 +17,8 @@ const productRoutes = require("./routes/product");
 
 const app = express();
 
+app.use("/uploads", express.static("uploads"));
+
 mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,

@@ -37,9 +37,18 @@ exports.update = (req, res) => {
 };
 
 //fetch the profile on the basis of jwt token in header
+// exports.getProfile = (req, res) => {
+//   res.status(200).json({
+//     status: "Success",
+//     data: req.user,
+//   });
+// };
+
 exports.getProfile = (req, res) => {
-  res.status(200).json({
-    status: "Success",
-    data: req.user,
-  });
+  req.user.hashed_password = undefined;
+  req.user.salt = undefined;
+  req.user.createdAt = undefined;
+  req.user.updatedAt = undefined;
+  req.user.__v = undefined;
+  return res.json(req.user);
 };

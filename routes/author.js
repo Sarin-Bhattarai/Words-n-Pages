@@ -16,22 +16,17 @@ const { userById } = require("../controllers/user");
 
 router.get("/author/:authorId", readAuthor);
 
-router.post(
-  "/author/create/:userId",
-  VerifyLogin,
-  getUserauthorization,
-  createAuthor
-);
+router.post("/author/create", VerifyLogin, getUserauthorization, createAuthor);
 
 router.put(
-  "/author/:authorId/:userId",
+  "/author/:authorId",
   VerifyLogin,
   getUserauthorization,
   updateAuthor
 );
 
 router.delete(
-  "/author/:authorId/:userId",
+  "/author/:authorId",
   VerifyLogin,
   getUserauthorization,
   removeAuthor

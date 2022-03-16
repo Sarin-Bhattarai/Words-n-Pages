@@ -63,7 +63,7 @@ router.get("/product/:productId", readProduct);
 
 //post product
 router.post(
-  "/product/create/:userId",
+  "/product/create",
   VerifyLogin,
   getUserauthorization,
   type,
@@ -98,7 +98,7 @@ router.post(
 
 //delete product
 router.delete(
-  "/product/:productId/:userId",
+  "/product/:productId",
   VerifyLogin,
   getUserauthorization,
   removeProduct
@@ -106,7 +106,7 @@ router.delete(
 
 //edit product
 router.put(
-  "/product/:productId/:userId",
+  "/product/:productId",
   VerifyLogin,
   getUserauthorization,
   type,

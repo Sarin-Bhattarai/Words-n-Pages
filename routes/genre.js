@@ -19,19 +19,9 @@ router.get("/genre/:genreId", read);
 
 router.post("/genre/create", VerifyLogin, getUserauthorization, create);
 
-router.put(
-  "/genre/:genreId/:userId",
-  VerifyLogin,
-  getUserauthorization,
-  update
-);
+router.put("/genre/:genreId", VerifyLogin, getUserauthorization, update);
 
-router.delete(
-  "/genre/:genreId/:userId",
-  VerifyLogin,
-  getUserauthorization,
-  remove
-);
+router.delete("/genre/:genreId", VerifyLogin, getUserauthorization, remove);
 
 router.get("/genres", list);
 

@@ -41,6 +41,27 @@ exports.removeProduct = (req, res) => {
  * if no params are send , then all products are returned
  */
 
+exports.listProducts = (req, res) => {
+  let order = req.query.order ? req.query.order : "asc"; //ascending order
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+  let limit = req.query.limit ? parseInt(req.query.limit) : 8; //default it's going to be five.
+
+  Product.find()
+    // .select("-photo") //not selecting photo since it is in binary form and makes slow.
+    .populate("genre") //we are refering the category as mongose object id referencing to "Category" model so we populate it.
+    .populate("author")
+    .sort([[sortBy, order]]) //Arrays of array
+    .limit(limit) //limit or it is set by default
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      res.json(products);
+    });
+};
+
 exports.listProduct = (req, res) => {
   let order = req.query.order ? req.query.order : "asc"; //ascending order
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";

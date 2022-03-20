@@ -10,6 +10,7 @@ const {
   productById,
   readProduct,
   removeProduct,
+  listProducts,
   listProduct,
 } = require("../controllers/product");
 
@@ -158,7 +159,13 @@ router.put(
   }
 );
 
-router.get("/products", listProduct);
+//for products in shop page
+
+router.get("/products", listProducts);
+/**
+ * @for featured products
+ */
+router.get("/products/features", listProduct);
 
 router.param("userId", userById);
 router.param("productId", productById);

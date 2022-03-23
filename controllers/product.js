@@ -41,10 +41,11 @@ exports.removeProduct = (req, res) => {
  * if no params are send , then all products are returned
  */
 
+// for all Product
 exports.listProducts = (req, res) => {
   let order = req.query.order ? req.query.order : "asc"; //ascending order
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
-  let limit = req.query.limit ? parseInt(req.query.limit) : 8; //default it's going to be five.
+  let limit = req.query.limit ? parseInt(req.query.limit) : 10;
 
   Product.find()
     // .select("-photo") //not selecting photo since it is in binary form and makes slow.
@@ -62,6 +63,7 @@ exports.listProducts = (req, res) => {
     });
 };
 
+// for featured Product
 exports.listProduct = (req, res) => {
   let order = req.query.order ? req.query.order : "asc"; //ascending order
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";

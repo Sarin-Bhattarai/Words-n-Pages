@@ -3,6 +3,8 @@ const router = express.Router();
 //import middlewares
 const { VerifyLogin } = require("../middlewares/profile");
 const { getUserauthorization } = require("../middlewares/authorization");
+const Author = require("../models/author");
+const paginate = require("paginate-middleware");
 
 const {
   createAuthor,
@@ -10,7 +12,7 @@ const {
   readAuthor,
   updateAuthor,
   removeAuthor,
-  listAuthor,
+  //listAuthor,
 } = require("../controllers/author");
 const { userById } = require("../controllers/user");
 
@@ -32,7 +34,10 @@ router.delete(
   removeAuthor
 );
 
-router.get("/authors", listAuthor);
+//GET http://localhost:80/api/authors?page=1&limit=5
+router.get("/authors", paginate(Author), (req, res) => {
+  res.json(res.paginatedResult);
+});
 
 router.param("authorId", authorById);
 //params property is where Express stores the values of the named sections in the URL.

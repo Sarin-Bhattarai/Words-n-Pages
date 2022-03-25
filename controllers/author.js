@@ -57,13 +57,13 @@ exports.removeAuthor = (req, res) => {
   });
 };
 
-exports.listAuthor = (req, res) => {
-  Author.find().exec((err, data) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler(err),
-      });
-    }
-    res.json(data);
-  });
-};
+// exports.listAuthor = (req, res) => {
+//   Author.find().exec((err, data) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: errorHandler(err),
+//       });
+//     }
+//     res.json(data);
+//   });
+// };

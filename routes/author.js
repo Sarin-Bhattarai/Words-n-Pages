@@ -12,7 +12,6 @@ const {
   readAuthor,
   updateAuthor,
   removeAuthor,
-  //listAuthor,
 } = require("../controllers/author");
 const { userById } = require("../controllers/user");
 

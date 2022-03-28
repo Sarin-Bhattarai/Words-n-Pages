@@ -56,13 +56,13 @@ exports.remove = (req, res) => {
   });
 };
 
-exports.list = (req, res) => {
-  Genre.find().exec((err, data) => {
-    if (err) {
-      return res.status(400).json({
-        error: errorHandler(err),
-      });
-    }
-    res.json(data);
-  });
-};
+// exports.list = (req, res) => {
+//   Genre.find().exec((err, data) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: errorHandler(err),
+//       });
+//     }
+//     res.json(data);
+//   });
+// };

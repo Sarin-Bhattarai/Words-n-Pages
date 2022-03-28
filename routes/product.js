@@ -6,11 +6,11 @@ const router = express.Router();
 const { VerifyLogin } = require("../middlewares/profile");
 const { getUserauthorization } = require("../middlewares/authorization");
 const { userById } = require("../controllers/user");
+const paginate = require("paginate-middleware");
 const {
   productById,
   readProduct,
   removeProduct,
-  listProducts,
   listProduct,
 } = require("../controllers/product");
 
@@ -159,9 +159,11 @@ router.put(
   }
 );
 
-//for products in shop page
+//GET http://localhost:80/api/products?page=1&limit=5
+router.get("/products", paginate(Product), (req, res) => {
+  res.json(res.paginatedResult);
+});
 
-router.get("/products", listProducts);
 /**
  * @for featured products
  */

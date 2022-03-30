@@ -12,6 +12,8 @@ const {
   readProduct,
   removeProduct,
   listProduct,
+  Search,
+  listBySearch,
 } = require("../controllers/product");
 
 //importing product model
@@ -168,6 +170,16 @@ router.get("/products", paginate(Product), (req, res) => {
  * @for featured products
  */
 router.get("/products/features", listProduct);
+
+/**
+ * @search route
+ */
+router.get("/products/search", Search);
+
+/**
+ * @for filtering and checkbox route
+ */
+router.post("/products/by/search", listBySearch);
 
 router.param("userId", userById);
 router.param("productId", productById);

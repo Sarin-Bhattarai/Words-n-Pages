@@ -84,3 +84,81 @@ exports.listProduct = (req, res) => {
       res.json(products);
     });
 };
+
+/**
+ * @search api controller
+ */
+exports.Search = (req, res) => {
+  //create query object to hold search value and genre value
+  const query = {};
+  //assign search value to query.name
+  if (req.query.search) {
+    //i is for case insensitivity
+    query.name = { $regex: req.query.search, $options: "i" };
+    //assign genre value to query.genre
+    if (req.query.genre && req.query.genre != "All") {
+      query.genre = req.query.genre;
+    }
+    //find the product based on query object wih 2 properties
+    //search and genre
+    Product.find(query, (err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      res.json(products);
+    });
+  }
+};
+
+/**
+ * @product by search i.e filtering and checkbox work in react frontend
+ *we will implement product search in react frontend
+ * we will show genres in checkbox {and price range in radio buttons = What do u say ayush??}
+ * as the user clicks on those checkbox {and radio buttons= what do you say ayush?}
+ * we will make api request and show the products to users based on what he/she wants
+ */
+exports.listBySearch = (req, res) => {
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit) : 50;
+  let skip = parseInt(req.body.skip);
+  let findArgs = {}; //we let it be empty for now when we serach product based on that it returns argument we passed in.
+
+  // console.log(order, sortBy, limit, skip, req.body.filters);
+  // console.log("findArgs", findArgs);
+
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      if (key === "price") {
+        // gte -  greater than price [0-10](gte and lte are already inbuilt in mongodb)
+        // lte - less than
+        findArgs[key] = {
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1],
+        };
+      } else {
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+
+  Product.find(findArgs)
+    // .select("-photo")
+    .populate("genre")
+    .sort([[sortBy, order]])
+    .skip(skip)
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      res.json({
+        size: data.length,
+        data,
+      });
+    });
+};

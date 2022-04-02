@@ -11,7 +11,7 @@ const VerifyLogin = async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
     }
     if (!token) {
-      return res.send({
+      return res.status(401).send({
         status: "fail",
         data: {
           login:
@@ -26,7 +26,7 @@ const VerifyLogin = async (req, res, next) => {
     next();
   } catch (ex) {
     console.log(ex);
-    return res.send({ status: "error", message: "Access Denied" });
+    return res.status(401).send({ status: "error", message: "Access Denied" });
   }
 };
 

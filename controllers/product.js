@@ -162,3 +162,24 @@ exports.listBySearch = (req, res) => {
       });
     });
 };
+
+/**
+ * It will find the products based on the req product genre
+ * Other product which have the same genre, will be returned
+ */
+
+exports.relatedProduct = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 4;
+  Product.find({ _id: { $ne: req.product }, genre: req.product, genre })
+    //ne = not including yourself(product itself) and displaying other diff product
+    .limit(limit)
+    .populate("genre", "_id name")
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Products not found",
+        });
+      }
+      res.json(products);
+    });
+};

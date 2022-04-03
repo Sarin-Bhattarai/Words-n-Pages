@@ -14,6 +14,7 @@ const {
   listProduct,
   Search,
   listBySearch,
+  relatedProduct,
 } = require("../controllers/product");
 
 //importing product model
@@ -165,6 +166,11 @@ router.put(
 router.get("/products", paginate(Product), (req, res) => {
   res.json(res.paginatedResult);
 });
+
+/**
+ * @Related products route
+ */
+router.get("/products/related/:productId", relatedProduct);
 
 /**
  * @for featured products

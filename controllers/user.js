@@ -29,20 +29,17 @@ exports.update = (req, res) => {
           error: "You are not authorized to perform this action",
         });
       }
-      user.hashed_password = undefined;
+      const password = user.hashed_password;
+      if (password !== user.hashed_password) {
+        return res.status(401).json({
+          error: "Password doesn't match",
+        });
+      }
       user.salt = undefined;
       res.json(user);
     }
   );
 };
-
-//fetch the profile on the basis of jwt token in header
-// exports.getProfile = (req, res) => {
-//   res.status(200).json({
-//     status: "Success",
-//     data: req.user,
-//   });
-// };
 
 exports.getProfile = (req, res) => {
   req.user.hashed_password = undefined;

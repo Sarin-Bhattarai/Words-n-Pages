@@ -1,6 +1,5 @@
 const { errorHandler } = require("../helper/errorHandler");
 const Product = require("../models/product");
-const paginate = require("paginate-middleware");
 
 exports.productById = (req, res, next, id) => {
   Product.findById(id)
@@ -157,11 +156,10 @@ exports.listBySearch = (req, res) => {
           error: "Products not found",
         });
       }
-      res.json(res.paginatedResult);
-      // res.json({
-      //   size: data.length,
-      //   data,
-      // });
+      res.json({
+        size: data.length,
+        data,
+      });
     });
 };
 

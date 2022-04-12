@@ -185,7 +185,7 @@ router.get("/products/search", Search);
 /**
  * @for filtering and checkbox route
  */
-router.post("/products/by/search", paginate(Product), listBySearch);
+router.post("/products/by/search", listBySearch);
 
 router.param("userId", userById);
 router.param("productId", productById);

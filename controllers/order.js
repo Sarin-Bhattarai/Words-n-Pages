@@ -2,16 +2,6 @@ const Order = require("../models/order");
 const OrderDetail = require("../models/orderDetail");
 const axios = require("axios");
 
-//{
-//deliveryLocation,
-//total,
-//payment:{
-// type,
-//   payload(
-//}
-//products: [{id:””,quantity:1}]
-//}
-
 module.exports = {
   createOrder: async (req, res, next) => {
     console.log(req.body.total);
@@ -25,7 +15,7 @@ module.exports = {
           amount: await req.body.payment.payload.amount,
         },
         headers: {
-          Authorization: `Key {atus your secret key}`,
+          Authorization: `Key test_secret_key_5c0b2fbe5910493f9b36edb74b5e741a`,
           "Content-Type": "application/json",
         },
       });
@@ -33,7 +23,7 @@ module.exports = {
       if (result.status == 200) {
         const { deliveryLocation, products } = req.body;
         const order = new Order({
-          deliveryLocation: req.body.deliveryLocation,
+          deliveryLocation: deliveryLocation,
           user: req.user._id,
           total: req.body.total,
         });

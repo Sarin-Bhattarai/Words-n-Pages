@@ -14,6 +14,7 @@ const userRoutes = require("./routes/user");
 const genreRoutes = require("./routes/genre");
 const authorRoutes = require("./routes/author");
 const productRoutes = require("./routes/product");
+const orderRoutes = require("./routes/order");
 
 const app = express();
 app.use("/uploads", express.static("uploads"));
@@ -36,6 +37,7 @@ app.use("/api", userRoutes);
 app.use("/api", genreRoutes);
 app.use("/api", authorRoutes);
 app.use("/api", productRoutes);
+app.use("/api", orderRoutes);
 
 const port = process.env.PORT || 80;
 

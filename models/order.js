@@ -10,6 +10,12 @@ const orderSchema = new mongoose.Schema(
     deliveryLocation: {
       type: String,
     },
+    zip: {
+      type: Number,
+    },
+    phone: {
+      type: Number,
+    },
     status: {
       type: String,
       required: true,

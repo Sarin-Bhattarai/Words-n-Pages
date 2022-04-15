@@ -6,7 +6,6 @@ module.exports = {
   createOrder: async (req, res, next) => {
     console.log(req.body.total);
     try {
-      console.log("abc");
       const result = await axios({
         method: "post",
         url: "https://khalti.com/api/v2/payment/verify/",
@@ -23,9 +22,11 @@ module.exports = {
       if (result.status == 200) {
         const { deliveryLocation, products } = req.body;
         const order = new Order({
-          deliveryLocation: deliveryLocation,
+          deliveryLocation: `${deliveryLocation.country}. ${deliveryLocation.city}, ${deliveryLocation.province}`,
           user: req.user._id,
           total: req.body.total,
+          zip: deliveryLocation.zip,
+          phone: deliveryLocation.phone,
         });
         await order.save();
 
@@ -46,7 +47,7 @@ module.exports = {
         console.log(result.data);
       }
     } catch (ex) {
-      console.log(ex);
+      return res.status(500).send({ status: "error", message: ex.message });
     }
   },
 

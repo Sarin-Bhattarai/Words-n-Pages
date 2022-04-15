@@ -115,8 +115,8 @@ exports.Search = (req, res) => {
 /**
  * @product by search i.e filtering and checkbox work in react frontend
  *we will implement product search in react frontend
- * we will show genres in checkbox {and price range in radio buttons = What do u say ayush??}
- * as the user clicks on those checkbox {and radio buttons= what do you say ayush?}
+ * we will show genres in checkbox
+ * as the user clicks on those checkbox
  * we will make api request and show the products to users based on what he/she wants
  */
 exports.listBySearch = (req, res) => {

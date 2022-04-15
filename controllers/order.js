@@ -51,6 +51,35 @@ module.exports = {
     }
   },
 
+  /**
+   * @For cash on delivery
+   */
+  createCashOrder: async (req, res, next) => {
+    const { deliveryLocation, products } = req.body;
+    const order = new Order({
+      deliveryLocation: `${deliveryLocation.country}. ${deliveryLocation.city}, ${deliveryLocation.province}`,
+      user: req.user._id,
+      total: req.body.total,
+      zip: deliveryLocation.zip,
+      phone: deliveryLocation.phone,
+    });
+    await order.save();
+
+    try {
+      for (let i = 0; i < products.length; i++) {
+        const newOrder = {
+          order: order._id,
+          product: products[i].id,
+          quantity: products[i].quantity,
+        };
+        const orderDetail = new OrderDetail(newOrder);
+        await orderDetail.save();
+      }
+    } catch (ex) {
+      return res.status(500).send({ status: "error", message: ex.message });
+    }
+  },
+
   fetchAllOrders: async (req, res, next) => {
     const orders = await Order.find();
     return res.status(200).send({

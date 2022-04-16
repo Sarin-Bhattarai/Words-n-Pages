@@ -27,6 +27,8 @@ module.exports = {
           total: req.body.total,
           zip: deliveryLocation.zip,
           phone: deliveryLocation.phone,
+          paymentStatus: "paid",
+          paymentType: "khalti",
         });
         await order.save();
 
@@ -56,16 +58,16 @@ module.exports = {
    */
   createCashOrder: async (req, res, next) => {
     const { deliveryLocation, products } = req.body;
-    const order = new Order({
-      deliveryLocation: `${deliveryLocation.country}. ${deliveryLocation.city}, ${deliveryLocation.province}`,
-      user: req.user._id,
-      total: req.body.total,
-      zip: deliveryLocation.zip,
-      phone: deliveryLocation.phone,
-    });
-    await order.save();
-
     try {
+      const order = new Order({
+        deliveryLocation: `${deliveryLocation.country}. ${deliveryLocation.city}, ${deliveryLocation.province}`,
+        user: req.user._id,
+        total: req.body.total,
+        zip: deliveryLocation.zip,
+        phone: deliveryLocation.phone,
+      });
+      await order.save();
+
       for (let i = 0; i < products.length; i++) {
         const newOrder = {
           order: order._id,

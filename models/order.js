@@ -6,6 +6,7 @@ const orderSchema = new mongoose.Schema(
     user: {
       type: ObjectId,
       ref: "User",
+      required: true,
     },
     deliveryLocation: {
       type: String,
@@ -19,8 +20,8 @@ const orderSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      enum: ["pending", "accepted", "rejected", "delivered"],
-      default: "pending",
+      enum: ["placed", "delivering", "delivered"],
+      default: "placed",
     },
     total: {
       type: Number,
@@ -28,6 +29,16 @@ const orderSchema = new mongoose.Schema(
     },
     deliveryCharge: {
       type: Number,
+    },
+    paymentStatus: {
+      type: String,
+      enum: ["paid", "unpaid"],
+      default: "unpaid",
+    },
+    paymentType: {
+      type: String,
+      enum: ["cod", "khalti"],
+      default: "cod",
     },
   },
   { timestamps: true }

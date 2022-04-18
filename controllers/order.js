@@ -83,22 +83,53 @@ module.exports = {
   },
 
   fetchAllOrders: async (req, res, next) => {
-    const orders = await Order.find();
-    return res.status(200).send({
-      status: "success",
-      data: {
-        orders,
-      },
-    });
+    try {
+      const orders = await Order.find();
+      return res.status(200).send({
+        status: "success",
+        data: {
+          orders,
+        },
+      });
+    } catch (ex) {
+      console.log(ex);
+      return res.status(500).send({ status: "error", message: ex.message });
+    }
   },
 
   fetchMyOrders: async (req, res, next) => {
-    const orders = await Order.find({ user: req.user._id }).populate("items");
-    return res.status(200).json({
-      status: "success",
-      data: {
-        orders,
-      },
-    });
+    try {
+      const orders = await Order.find({ user: req.user._id }).populate("items");
+      return res.status(200).json({
+        status: "success",
+        data: {
+          orders,
+        },
+      });
+    } catch (ex) {
+      console.log(ex);
+      return res.status(500).send({ status: "error", message: ex.message });
+    }
+  },
+
+  updateOrder: async (req, res, next) => {
+    const id = req.params.id;
+    try {
+      const order = await Order.findById(id);
+      if (req.body.status) {
+        order.status = req.body.status;
+      }
+      if (req.body.paymentStatus) {
+        order.paymentStatus = req.body.paymentStatus;
+      }
+      const result = await order.save();
+      return res
+        .status(200)
+        .send({ status: "success", data: { order: result } });
+    } catch (ex) {
+      return res
+        .status(400)
+        .send({ status: "error", message: "Something went wrong" });
+    }
   },
 };

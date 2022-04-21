@@ -99,7 +99,7 @@ module.exports = {
 
   fetchMyOrders: async (req, res, next) => {
     try {
-      const orders = await Order.find({ user: req.user._id }).populate("items");
+      const orders = await Order.find({ user: req.user._id });
       return res.status(200).json({
         status: "success",
         data: {

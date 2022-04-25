@@ -118,6 +118,9 @@ module.exports = {
       const order = await Order.findById(id);
       if (req.body.status) {
         order.status = req.body.status;
+        if (req.body.status === "delivered") {
+          order.paymentStatus = "paid";
+        }
       }
       if (req.body.paymentStatus) {
         order.paymentStatus = req.body.paymentStatus;
